@@ -27,19 +27,21 @@ document.addEventListener("keydown", direction);
 let dir;
 
 function direction(event) {
-    if(event.keyCode == 37 && dir != "right")
+    const keyCode = event.keyCode;
+    if (keyCode === 37 && dir !== "right") {
         dir = "left";
-    else if(event.keyCode == 38 && dir != "down")
+    } else if (keyCode === 38 && dir !=="down") {
         dir = "up";
-    else if(event.keyCode == 39 && dir != "left")
+    } else if (keyCode === 39 && dir !== "left") {
         dir = "right";
-    else if(event.keyCode == 40 && dir != "up")
+    } else if (keyCode === 40 && dir !== "up") {
         dir = "down";
+    }
 }
 
 function eatTail(head, arr) {
-    for(let i = 0; i < arr.length; i++) {
-        if(head.x === arr[i].x && head.y === arr[i].y)
+    for (let i = 0; i < arr.length; i++) {
+        if (head.x === arr[i].x && head.y === arr[i].y)
             clearInterval(game);
     }
 }
@@ -61,7 +63,7 @@ function drawGame() {
     let snakeX = snake[0].x;
     let snakeY = snake[0].y;
 
-    if (snakeX == food.x && snakeY == food.y) {
+    if (snakeX === food.x && snakeY === food.y) {
         score++;
         food = {
             x: Math.floor((Math.random() * 17 + 1)) * box,
