@@ -7,11 +7,21 @@ ground.src = "img/ground.png";
 const foodImg = new Image();
 foodImg.src = "img/food.png";
 
+const bombImg = new Image();
+bombImg.src = "img/bomb.png";
+
+let speed = 1000;
+
 let box = 32;
 
 let score = 0;
 
 let food = {
+    x: Math.floor((Math.random() * 17 + 1)) * box,
+    y: Math.floor((Math.random() * 15 + 3)) * box,
+};
+
+let bomb = {
     x: Math.floor((Math.random() * 17 + 1)) * box,
     y: Math.floor((Math.random() * 15 + 3)) * box,
 };
@@ -36,6 +46,13 @@ function direction(event) {
         dir = "right";
     } else if (keyCode === 40 && dir !== "up") {
         dir = "down";
+    } else if (keyCode === 27) {
+        if (game === null) {
+            game = setInterval(drawGame, speed);
+        } else {
+            clearInterval(game)
+            game = null
+        }
     }
 }
 
@@ -48,8 +65,8 @@ function eatTail(head, arr) {
 
 function drawGame() {
     ctx.drawImage(ground, 0, 0);
-
     ctx.drawImage(foodImg, food.x, food.y)
+    ctx.drawImage(bombImg, bomb.x, bomb.y)
 
     for (let i = 0; i < snake.length; i++) {
         ctx.fillStyle = i === 0 ? "green" : "red";
@@ -89,7 +106,9 @@ function drawGame() {
     eatTail(newHead, snake)
 
     snake.unshift(newHead)
+
+
 }
 
+let game = setInterval(drawGame, speed);
 
-let game = setInterval(drawGame, 100);
