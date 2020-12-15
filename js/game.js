@@ -10,7 +10,7 @@ foodImg.src = "img/food.png";
 const bombImg = new Image();
 bombImg.src = "img/bomb.png";
 
-let speed = 1000;
+let speed = 500;
 
 let box = 32;
 
@@ -32,15 +32,13 @@ snake[0] = {
     y: 10 * box
 }
 
-document.addEventListener("keydown", direction);
-
 let dir;
 
-function direction(event) {
+document.addEventListener("keydown", function direction(event) {
     const keyCode = event.keyCode;
     if (keyCode === 37 && dir !== "right") {
         dir = "left";
-    } else if (keyCode === 38 && dir !=="down") {
+    } else if (keyCode === 38 && dir !== "down") {
         dir = "up";
     } else if (keyCode === 39 && dir !== "left") {
         dir = "right";
@@ -54,7 +52,8 @@ function direction(event) {
             game = null
         }
     }
-}
+    console.log(dir);
+});
 
 function eatTail(head, arr) {
     for (let i = 0; i < arr.length; i++) {
@@ -90,13 +89,19 @@ function drawGame() {
         snake.pop();
     }
 
-    if (snakeX < box || snakeX > box * 17 || snakeY < 3 * box || snakeY > box * 17)
+    if (snakeX < box || snakeX > box * 17 || snakeY < 3 * box || snakeY > box * 17) {
         clearInterval(game);
+    }
 
-    if (dir === "left") snakeX -= box;
-    if (dir === "right") snakeX += box;
-    if (dir === "up") snakeY -= box;
-    if (dir === "down") snakeY += box;
+    if (dir === "left") {
+        snakeX -= box;
+    } else if (dir === "right") {
+        snakeX += box;
+    } else if (dir === "up") {
+        snakeY -= box;
+    } else if (dir === "down") {
+        snakeY += box;
+    }
 
     let newHead = {
         x: snakeX,
@@ -106,8 +111,6 @@ function drawGame() {
     eatTail(newHead, snake)
 
     snake.unshift(newHead)
-
-
 }
 
 let game = setInterval(drawGame, speed);
