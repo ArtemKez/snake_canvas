@@ -2,13 +2,13 @@ const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
 const ground = new Image();
-ground.src = "img/ground.png";
+ground.src = "./snake_canvas/img/ground.png";
 
 const foodImg = new Image();
-foodImg.src = "img/food.png";
+foodImg.src = "./snake_canvas/img/food.png";
 
 const bombImg = new Image();
-bombImg.src = "img/bomb.png";
+bombImg.src = "./snake_canvas/img/bomb.png";
 
 let speed = 500;
 
